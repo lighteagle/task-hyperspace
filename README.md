@@ -4,9 +4,9 @@
 
 This section provides direct links to the different modules of the Task Hyperspace project, each serving a specific purpose:
 
-- ![Plantation](assets/sprout.png) [**Plantation**](https://lighteagle.github.io/task-hyperspace/plantation/): Manages and visualizes data related to tree plantations.
-- ![Wildlife Monitoring](assets/paw.png) [**Wildlife Monitoring**](https://lighteagle.github.io/task-hyperspace/plantation/): Tracks and monitors wildlife, with a focus on animal movement and behavior.
-- ![Ship Tracker](assets/ship.png) [**Ship Tracker**](https://lighteagle.github.io/task-hyperspace/plantation/): Monitors ship movements and tracks their locations over time.
+- ![Plantation](assets/sprout.png) [**Plantation**](https://lighteagle.github.io/task-hyperspace/plantations/): Manages and visualizes data related to tree plantations.
+- ![Wildlife Monitoring](assets/paw.png) [**Wildlife Monitoring**](https://lighteagle.github.io/task-hyperspace/wildlife_monitoring/): Tracks and monitors wildlife, with a focus on animal movement and behavior.
+- ![Ship Tracker](assets/ship.png) [**Ship Tracker**](https://lighteagle.github.io/task-hyperspace/ship_tracker/): Monitors ship movements and tracks their locations over time.
 
 Each link is accompanied by a relevant icon for easy identification.
 
