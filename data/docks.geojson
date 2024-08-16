@@ -1,0 +1,78 @@
+{
+    "type": "FeatureCollection",
+    "name": "docks",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "dockId": "DockA",
+                "dockName": "New York",
+                "capacity": 10
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-74.006, 40.7128]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "dockId": "DockC",
+                "dockName": "Tokyo",
+                "capacity": 12
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [139.6917, 35.6895]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "dockId": "DockD",
+                "dockName": "Los Angeles",
+                "capacity": 6
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-118.2437, 34.0522]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "dockId": "DockG",
+                "dockName": "San Francisco",
+                "capacity": 14
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-122.4194, 37.7749]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "dockId": "DockI",
+                "dockName": "Chennai",
+                "capacity": 7
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [80.2707, 13.0827]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "dockId": "DockJ",
+                "dockName": "Lagos",
+                "capacity": 13
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [3.3792, 6.5244]
+            }
+        }
+    ]
+}

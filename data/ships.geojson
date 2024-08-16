@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"name": "ships",
+"features": [
+{ "type": "Feature", "properties": { "shipId": "SSN001", "shipName": "Eclipse Voyager", "timestamp": "2023-09-21T11:00:00Z", "dockId": "DockA" }, "geometry": { "type": "Point", "coordinates": [ -63.085373731458603, 33.166025749381959 ] } },
+{ "type": "Feature", "properties": { "shipId": "SSN002", "shipName": "Aurora Explorer", "timestamp": "2023-09-21T12:00:00Z", "dockId": "DockG" }, "geometry": { "type": "Point", "coordinates": [ 144.574906868046952, 29.518902230377019 ] } },
+{ "type": "Feature", "properties": { "shipId": "SSN003", "shipName": "Nebula Freighter", "timestamp": "2023-09-21T12:30:00Z", "dockId": "DockD" }, "geometry": { "type": "Point", "coordinates": [ -122.649684378669676, 29.612921029048195 ] } },
+{ "type": "Feature", "properties": { "shipId": "SSN004", "shipName": "Titanium Wave", "timestamp": "2023-09-21T14:00:00Z", "dockId": "DockI" }, "geometry": { "type": "Point", "coordinates": [ -123.906558455268836, 36.842651416100125 ] } },
+{ "type": "Feature", "properties": { "shipId": "SSN005", "shipName": "Celestial Breeze", "timestamp": "2023-09-21T15:00:00Z", "dockId": "DockI" }, "geometry": { "type": "Point", "coordinates": [ 74.38865536348888, 6.756727466393698 ] } },
+{ "type": "Feature", "properties": { "shipId": "SSN006", "shipName": "Starlight Cruiser", "timestamp": "2023-09-21T17:00:00Z", "dockId": "DockG" }, "geometry": { "type": "Point", "coordinates": [ 100.557126941440131, -9.252998106072326 ] } },
+{ "type": "Feature", "properties": { "shipId": "SSN008", "shipName": "Polar Quest", "timestamp": "2023-09-21T19:00:00Z", "dockId": "DockA" }, "geometry": { "type": "Point", "coordinates": [ -15.612954558006667, 60.857828608468225 ] } },
+{ "type": "Feature", "properties": { "shipId": "SSN009", "shipName": "Lagoon Seeker", "timestamp": "2023-09-21T19:30:00Z", "dockId": "DockI" }, "geometry": { "type": "Point", "coordinates": [ 86.285923005639688, 7.600190470874541 ] } }
+]
+}
