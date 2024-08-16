@@ -1,0 +1,116 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body,
+#map {
+    height: 100%;
+    font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.legend div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.legend input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.legend i {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.legend .feature-count {
+    margin-left: auto;
+    padding-left: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 10px;
+    color: #333;
+}
+
+.popup-content h2 {
+    margin: 0;
+    color: #555;
+}
+
+.popup-content p {
+    font-size: 11px;
+    margin: 5px 0;
+}
+
+.popup-content strong {
+    color: #000;
+}
+
+.feature-count {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #150149;
+    background-color: #007bff59;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#zoom-all {
+    padding-top: 18px;
+    float: right;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#zoom-all .fa-expand {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+#wildlife-monitoring {
+    margin-top: 10px;
+}
+
+.controls {
+    padding: 10px;
+}
+
+.control-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.slider-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.slider-label {
+    flex: 1;
+    margin-right: 10px;
+}
+
+#time-slider{
+    width: 165px;
+}
+
+select{
+    width: 200px;
+}

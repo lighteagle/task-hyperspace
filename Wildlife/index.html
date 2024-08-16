@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Monitoring</title>
+    <link rel="icon" href="../assets/paw.png" type="image/png">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin="" />
+    <link rel="stylesheet" href="../css/leaflet-sidebar.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" crossorigin=""></script>
+    <script src="../js/leaflet-sidebar.min.js"></script>
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <div id="sidebar" class="leaflet-sidebar collapsed">
+        <div class="leaflet-sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="leaflet-sidebar-content">
+            <div class="leaflet-sidebar-pane" id="home">
+                <h1 class="leaflet-sidebar-header"> Wildlife Monitoring<span class="leaflet-sidebar-close"><i
+                            class="fa fa-caret-left"></i></span></h1>
+
+                <div id="wildlife-monitoring">
+
+                    <div class="controls">
+                        <div class="control-group">
+                            <label for="species-select">Select Species:</label>
+                            <select id="species-select">
+                                <option value="">--Select Species--</option>
+                            </select>
+                        </div>
+                        <div class="control-group" id="animal-select-container" style="display: none;">
+                            <label for="animal-select">Select Animal ID:</label>
+                            <select id="animal-select">
+                                <option value="">--Select Animal--</option>
+                            </select>
+                        </div>
+                        <div class="control-group" id="date-select-container" style="display: none;">
+                            <label for="date-select">Select Date:</label>
+                            <select id="date-select">
+                                <option value="">--Select Date--</option>
+                            </select>
+                        </div>
+                        <div class="control-group" id="time-slider-container" style="display: none;">
+                            <div class="slider-container">
+                                <span class="slider-label">Select Time:</span>
+                                <input type="range" id="time-slider" min="0" max="0" step="1" value="0">
+                                <span id="time-display">00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/wildlife.js"></script>
+    <script src="../js/map.js"></script>
+
+</body>
+
+</html>
