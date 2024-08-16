@@ -15,13 +15,12 @@ const ITEMS = [
 ];
 
 // Define global variables
-let AllData = [
-    { name: "Ships", features: [], markers: [], count: 0 },
-    { name: "Docks", features: [], markers: [], count: 0 },
-    { name: "Containers", features: [], markers: [], count: 0 },
-];
-
 let tooltipsVisible = false; 
+let AllData = [
+    { name: "Ships", features: [], markers: [], lines: [] },
+    { name: "Docks", features: [], markers: [] },
+    { name: "Containers", features: [], markers: [], lines: [] },
+];
 
 // Fetch data
 Promise.all(
@@ -30,7 +29,6 @@ Promise.all(
             .then((response) => response.json())
             .then((geojson) => {
                 AllData[index].features = geojson.features;
-                AllData[index].count = geojson.features.length; 
             })
             .catch(console.error)
     )
@@ -39,6 +37,7 @@ Promise.all(
     $(document).ready(() => {
         setupLegend();
         addMarkers();
+        addLines(); // Add lines after markers
         setupCheckboxes();
         setupIDToggle();
     });
@@ -55,24 +54,27 @@ function appendItems() {
     let ctx = '<h4>Location</h4>';
     $.each(ITEMS, function (i, val) {
         const { name, color } = val;
-        const count = AllData.find(dataset => dataset.name === name).count; 
         ctx += `<div>
                     <input type="checkbox" id="${name}" class="tree-checkbox" checked> 
-                    <i style="background: ${color};"></i> ${name} <span class="feature-count" id="${name}-count" data-type="${name}">${count}</span>
+                    <i style="background: ${color};"></i> ${name} <span class="feature-count" id="${name}-count" data-type="${name}">0</span>
                 </div>`;
     });
+
+    ctx += '<h4>Connections</h4>';
+    ctx += `<div>
+                <input type="checkbox" id="ship-lines" class="tree-checkbox" checked>
+                <i style="background: blue;"></i> Ships to Docks
+            </div>`;
+    ctx += `<div>
+                <input type="checkbox" id="container-lines" class="tree-checkbox" checked>
+                <i style="background: gray;"></i> Containers to Docks
+            </div>`;
 
     return ctx;
 }
 
-// Add markers for every dataset type
+// Add Markers for each dataset include popup & labels
 function addMarkers() {
-    const docks = AllData.find(dataset => dataset.name === "Docks").features.reduce((acc, feature) => {
-        acc[feature.properties.dockId] = feature.properties.dockName; // Map dockId to dockName
-        return acc;
-    }, {});
-    console.log(docks)
-
     AllData.forEach((dataset, index) => {
         const color = ITEMS[index].color;
         dataset.features.forEach((feature) => {
@@ -81,14 +83,13 @@ function addMarkers() {
             let ctxLabel = '';
             switch (dataset.name) {
                 case "Ships":
-                    const dockName = docks[feature.properties.dockId] || "Unknown Dock";
                     ctxPopup = `<div class="popup-content">
                                     <h2>${feature.properties.shipName}</h2>
                                     <p><strong>Ship ID:</strong> ${feature.properties.shipId}</p>
-                                    <p><strong>Destination:</strong> ${feature.properties.dockId} | ${dockName}</p>
+                                    <p><strong>Destination:</strong> ${feature.properties.dockId} | ${getDockName(feature.properties.dockId)}</p>
                                     <p><strong>Time:</strong> ${new Date(feature.properties.timestamp).toLocaleString()}</p>
                                 </div>`;
-                    ctxLabel = `${feature.properties.shipId} | Destination: ${feature.properties.dockId} | ${dockName}`;
+                    ctxLabel = `${feature.properties.shipId} | ${feature.properties.shipName}`;
                     break;
 
                 case "Docks":
@@ -101,18 +102,16 @@ function addMarkers() {
                     break;
 
                 case "Containers":
-                    const containerDockName = docks[feature.properties.destinationDock] || "Unknown Dock";
                     ctxPopup = `<div class="popup-content">
                                     <h2>${feature.properties.containerId}</h2> 
                                     <p><strong>Type:</strong> ${feature.properties.containerType}</p>
                                     <p><strong>Size:</strong> ${feature.properties.containerSize}</p>
                                     <p><strong>Content:</strong> ${feature.properties.contents}</p>
-                                    <p><strong>Destination:</strong> ${feature.properties.destinationDock}</p>
+                                    <p><strong>Destination:</strong> ${getDockName(feature.properties.destinationDock)}</p>
                                 </div>`;
-                    ctxLabel = `${feature.properties.containerId} | Destination: ${containerDockName}`;
+                    ctxLabel = `${feature.properties.containerId} | Destination: ${feature.properties.destinationDock}`;
                     break;
             }
-
             const marker = L.circleMarker(
                 [coordinates[1], coordinates[0]],
                 {
@@ -137,27 +136,90 @@ function addMarkers() {
     });
 }
 
-// Setup checkboxes for each dataset to show/hide markers
-function setupCheckboxes() {
-    $('.tree-checkbox').change(function() {
-        const name = $(this).attr('id');
-        const checked = $(this).is(':checked');
+// Add Connection Lines from feature to Destination Docks
+function addLines() {
+    const docks = {};
+    AllData[1].features.forEach(feature => {
+        const coordinates = feature.geometry.coordinates;
+        docks[feature.properties.dockId] = coordinates;
+    });
 
-        AllData.forEach(dataset => {
-            if (dataset.name === name) {
-                dataset.markers.forEach(marker => {
-                    if (checked) {
-                        marker.addTo(map);
-                    } else {
-                        map.removeLayer(marker);
-                    }
-                });
-            }
-        });
+    // Add lines from ships to destination docks
+    AllData[0].markers.forEach(marker => {
+        const shipId = marker.getTooltip().getContent().split('|')[0].trim();
+        const dockId = AllData[0].features.find(feature => feature.properties.shipId === shipId).properties.dockId;
+        if (docks[dockId]) {
+            const line = L.polyline([
+                marker.getLatLng(),
+                L.latLng(docks[dockId][1], docks[dockId][0])
+            ], {
+                color: 'blue',
+                weight: 2,
+                opacity: 0.7
+            }).addTo(map);
+
+            AllData[0].lines.push(line); 
+        }
+    });
+
+    // Add lines from containers to destination docks
+    AllData[2].markers.forEach(marker => {
+        const containerId = marker.getTooltip().getContent().split('|')[0].trim();
+        const dockId = AllData[2].features.find(feature => feature.properties.containerId === containerId).properties.destinationDock;
+        if (docks[dockId]) {
+            const line = L.polyline([
+                marker.getLatLng(),
+                L.latLng(docks[dockId][1], docks[dockId][0])
+            ], {
+                color: 'gray',
+                weight: 2,
+                opacity: 0.7
+            }).addTo(map);
+
+            AllData[2].lines.push(line); 
+        }
     });
 }
 
-// Setup ID toggle to show/hide tooltips
+// Setup checkboxes for show/hide feature
+function setupCheckboxes() {
+    $('.tree-checkbox').change(function() {
+        const id = $(this).attr('id');
+        const checked = $(this).is(':checked');
+
+        if (id === "ship-lines") {
+            AllData[0].lines.forEach(line => {
+                if (checked) {
+                    line.addTo(map);
+                } else {
+                    map.removeLayer(line);
+                }
+            });
+        } else if (id === "container-lines") {
+            AllData[2].lines.forEach(line => {
+                if (checked) {
+                    line.addTo(map);
+                } else {
+                    map.removeLayer(line);
+                }
+            });
+        } else {
+            AllData.forEach(dataset => {
+                if (dataset.name === id) {
+                    dataset.markers.forEach(marker => {
+                        if (checked) {
+                            marker.addTo(map);
+                        } else {
+                            map.removeLayer(marker);
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+// Setup toggle for show/hide tooltips
 function setupIDToggle() {
     $('#show-tooltips').change(function() {
         tooltipsVisible = $(this).is(':checked');
@@ -176,4 +238,10 @@ function setupIDToggle() {
             });
         });
     });
+}
+
+// Helper function to get dock name from dockId
+function getDockName(dockId) {
+    const dock = AllData[1].features.find(feature => feature.properties.dockId === dockId);
+    return dock ? dock.properties.dockName : "Unknown Dock";
 }
