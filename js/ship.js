@@ -19,7 +19,7 @@ let AllData = [
     { name: "Containers", features: [], markers: [] },
 ];
 
-let tooltipsVisible = true; // Initialize tooltips visibility
+let tooltipsVisible = false; 
 
 Promise.all(
     MULTIDATA.map((source, index) =>
