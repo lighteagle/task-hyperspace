@@ -3,7 +3,7 @@ const MODUL = "Plantation";
 const DEFAULT_ZOOM = 5;
 const DEFAULT_CENTER = [37.0902, -105.7129];
 const DEFAULT_BASEMAP = "Satellite";
-const DATA = "../data/plant.geojson";
+const DATA = "../data/plants.geojson";
 
 let AllData = [];
 const treeLayers = {};
