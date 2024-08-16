@@ -37,7 +37,7 @@ Promise.all(
     $(document).ready(() => {
         setupLegend();
         addMarkers();
-        addLines(); // Add lines after markers
+        addLines(); 
         setupCheckboxes();
         setupIDToggle();
     });
@@ -50,6 +50,7 @@ function setupLegend() {
     div_legend.append(appendItems());
 }
 
+// Append items to legend
 function appendItems() {
     let ctx = '<h4>Location</h4>';
     $.each(ITEMS, function (i, val) {
@@ -73,11 +74,12 @@ function appendItems() {
     return ctx;
 }
 
-// Add Markers for each dataset include popup & labels
+// Add Markers for each dataset including popup & labels
 function addMarkers() {
     AllData.forEach((dataset, index) => {
         const color = ITEMS[index].color;
-        dataset.features.forEach((feature) => {
+        let count = 0; 
+        dataset.features.forEach(feature => {
             const coordinates = feature.geometry.coordinates;
             let ctxPopup = '';
             let ctxLabel = '';
@@ -132,7 +134,10 @@ function addMarkers() {
 
             marker.addTo(map);
             dataset.markers.push(marker); 
+            count++; 
         });
+        
+        $(`#${dataset.name}-count`).text(count);
     });
 }
 
@@ -158,7 +163,7 @@ function addLines() {
                 opacity: 0.7
             }).addTo(map);
 
-            AllData[0].lines.push(line); 
+            AllData[0].lines.push(line);
         }
     });
 
@@ -176,7 +181,7 @@ function addLines() {
                 opacity: 0.7
             }).addTo(map);
 
-            AllData[2].lines.push(line); 
+            AllData[2].lines.push(line);
         }
     });
 }
