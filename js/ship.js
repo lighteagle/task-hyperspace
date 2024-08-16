@@ -67,6 +67,12 @@ function appendItems() {
 
 // Add markers for every dataset type
 function addMarkers() {
+    const docks = AllData.find(dataset => dataset.name === "Docks").features.reduce((acc, feature) => {
+        acc[feature.properties.dockId] = feature.properties.dockName; // Map dockId to dockName
+        return acc;
+    }, {});
+    console.log(docks)
+
     AllData.forEach((dataset, index) => {
         const color = ITEMS[index].color;
         dataset.features.forEach((feature) => {
@@ -75,13 +81,14 @@ function addMarkers() {
             let ctxLabel = '';
             switch (dataset.name) {
                 case "Ships":
+                    const dockName = docks[feature.properties.dockId] || "Unknown Dock";
                     ctxPopup = `<div class="popup-content">
                                     <h2>${feature.properties.shipName}</h2>
                                     <p><strong>Ship ID:</strong> ${feature.properties.shipId}</p>
-                                    <p><strong>Destination:</strong> ${feature.properties.dockId} | "Dock Name"</p>
+                                    <p><strong>Destination:</strong> ${feature.properties.dockId} | ${dockName}</p>
                                     <p><strong>Time:</strong> ${new Date(feature.properties.timestamp).toLocaleString()}</p>
                                 </div>`;
-                    ctxLabel = `${feature.properties.shipId} | ${feature.properties.shipName}`;
+                    ctxLabel = `${feature.properties.shipId} | Destination: ${feature.properties.dockId} | ${dockName}`;
                     break;
 
                 case "Docks":
