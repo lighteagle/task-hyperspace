@@ -101,6 +101,7 @@ function addMarkers() {
                     break;
 
                 case "Containers":
+                    const containerDockName = docks[feature.properties.destinationDock] || "Unknown Dock";
                     ctxPopup = `<div class="popup-content">
                                     <h2>${feature.properties.containerId}</h2> 
                                     <p><strong>Type:</strong> ${feature.properties.containerType}</p>
@@ -108,7 +109,7 @@ function addMarkers() {
                                     <p><strong>Content:</strong> ${feature.properties.contents}</p>
                                     <p><strong>Destination:</strong> ${feature.properties.destinationDock}</p>
                                 </div>`;
-                    ctxLabel = `${feature.properties.containerId} | Destination: ${feature.properties.destinationDock}`;
+                    ctxLabel = `${feature.properties.containerId} | Destination: ${containerDockName}`;
                     break;
             }
 

@@ -1,145 +1,16 @@
 {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-74.006, 40.7128]
-            },
-            "properties": {
-                "containerId": "Container001",
-                "containerType": "Standard",
-                "containerSize": "20ft",
-                "contents": "Electronics",
-                "destinationDock": "DockA"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [2.3522, 48.8566]
-            },
-            "properties": {
-                "containerId": "Container002",
-                "containerType": "Refrigerated",
-                "containerSize": "40ft",
-                "contents": "Perishables",
-                "destinationDock": "DockB"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [139.6917, 35.6895]
-            },
-            "properties": {
-                "containerId": "Container003",
-                "containerType": "Standard",
-                "containerSize": "20ft",
-                "contents": "Textiles",
-                "destinationDock": "DockC"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-118.2437, 34.0522]
-            },
-            "properties": {
-                "containerId": "Container004",
-                "containerType": "High Cube",
-                "containerSize": "40ft",
-                "contents": "Machinery",
-                "destinationDock": "DockD"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [10.4515, 51.1657]
-            },
-            "properties": {
-                "containerId": "Container005",
-                "containerType": "Standard",
-                "containerSize": "20ft",
-                "contents": "Furniture",
-                "destinationDock": "DockE"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [13.405, 52.52]
-            },
-            "properties": {
-                "containerId": "Container006",
-                "containerType": "Refrigerated",
-                "containerSize": "40ft",
-                "contents": "Food Products",
-                "destinationDock": "DockF"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-122.4194, 37.7749]
-            },
-            "properties": {
-                "containerId": "Container007",
-                "containerType": "High Cube",
-                "containerSize": "40ft",
-                "contents": "Chemicals",
-                "destinationDock": "DockG"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [131.0369, -25.3444]
-            },
-            "properties": {
-                "containerId": "Container008",
-                "containerType": "Standard",
-                "containerSize": "20ft",
-                "contents": "Automobile Parts",
-                "destinationDock": "DockH"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [80.2707, 13.0827]
-            },
-            "properties": {
-                "containerId": "Container009",
-                "containerType": "Refrigerated",
-                "containerSize": "40ft",
-                "contents": "Seafood",
-                "destinationDock": "DockI"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [3.3792, 6.5244]
-            },
-            "properties": {
-                "containerId": "Container010",
-                "containerType": "Standard",
-                "containerSize": "20ft",
-                "contents": "Electrical Appliances",
-                "destinationDock": "DockJ"
-            }
-        }
-    ]
+"type": "FeatureCollection",
+"name": "containers",
+"features": [
+{ "type": "Feature", "properties": { "containerId": "Container001", "containerType": "Standard", "containerSize": "20ft", "contents": "Electronics", "destinationDock": "DockA" }, "geometry": { "type": "Point", "coordinates": [ -74.006, 40.7128 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container002", "containerType": "Refrigerated", "containerSize": "40ft", "contents": "Perishables", "destinationDock": "DockC" }, "geometry": { "type": "Point", "coordinates": [ 2.3522, 48.8566 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container003", "containerType": "Standard", "containerSize": "20ft", "contents": "Textiles", "destinationDock": "DockC" }, "geometry": { "type": "Point", "coordinates": [ 139.6917, 35.6895 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container004", "containerType": "High Cube", "containerSize": "40ft", "contents": "Machinery", "destinationDock": "DockD" }, "geometry": { "type": "Point", "coordinates": [ -118.2437, 34.0522 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container005", "containerType": "Standard", "containerSize": "20ft", "contents": "Furniture", "destinationDock": "DockD" }, "geometry": { "type": "Point", "coordinates": [ 10.4515, 51.1657 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container006", "containerType": "Refrigerated", "containerSize": "40ft", "contents": "Food Products", "destinationDock": "DockD" }, "geometry": { "type": "Point", "coordinates": [ 13.405, 52.52 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container007", "containerType": "High Cube", "containerSize": "40ft", "contents": "Chemicals", "destinationDock": "DockG" }, "geometry": { "type": "Point", "coordinates": [ -122.4194, 37.7749 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container008", "containerType": "Standard", "containerSize": "20ft", "contents": "Automobile Parts", "destinationDock": "DockI" }, "geometry": { "type": "Point", "coordinates": [ 131.0369, -25.3444 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container009", "containerType": "Refrigerated", "containerSize": "40ft", "contents": "Seafood", "destinationDock": "DockI" }, "geometry": { "type": "Point", "coordinates": [ 80.2707, 13.0827 ] } },
+{ "type": "Feature", "properties": { "containerId": "Container010", "containerType": "Standard", "containerSize": "20ft", "contents": "Electrical Appliances", "destinationDock": "DockJ" }, "geometry": { "type": "Point", "coordinates": [ 3.3792, 6.5244 ] } }
+]
 }
