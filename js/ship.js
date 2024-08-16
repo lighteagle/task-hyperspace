@@ -1,3 +1,4 @@
+// Define constants
 const MODUL = "ship";
 const DEFAULT_ZOOM = 2;
 const DEFAULT_CENTER = [0, 0];
@@ -13,21 +14,23 @@ const ITEMS = [
     { name: "Containers", color: "gray" },
 ];
 
+// Define global variables
 let AllData = [
     { name: "Ships", features: [], markers: [], count: 0 },
     { name: "Docks", features: [], markers: [], count: 0 },
     { name: "Containers", features: [], markers: [], count: 0 },
 ];
 
-let tooltipsVisible = false; // Initialize tooltips visibility
+let tooltipsVisible = false; 
 
+// Fetch data
 Promise.all(
     MULTIDATA.map((source, index) =>
         fetch(source.data)
             .then((response) => response.json())
             .then((geojson) => {
                 AllData[index].features = geojson.features;
-                AllData[index].count = geojson.features.length; // Set feature count
+                AllData[index].count = geojson.features.length; 
             })
             .catch(console.error)
     )
@@ -41,6 +44,7 @@ Promise.all(
     });
 });
 
+// Setup Legend
 function setupLegend() {
     var div_legend = $("#ship-legend");
     div_legend.html("");
@@ -51,7 +55,7 @@ function appendItems() {
     let ctx = '<h4>Location</h4>';
     $.each(ITEMS, function (i, val) {
         const { name, color } = val;
-        const count = AllData.find(dataset => dataset.name === name).count; // Get the count
+        const count = AllData.find(dataset => dataset.name === name).count; 
         ctx += `<div>
                     <input type="checkbox" id="${name}" class="tree-checkbox" checked> 
                     <i style="background: ${color};"></i> ${name} <span class="feature-count" id="${name}-count" data-type="${name}">${count}</span>
@@ -61,6 +65,7 @@ function appendItems() {
     return ctx;
 }
 
+// Add markers for every dataset type
 function addMarkers() {
     AllData.forEach((dataset, index) => {
         const color = ITEMS[index].color;
@@ -99,6 +104,7 @@ function addMarkers() {
                     ctxLabel = `${feature.properties.containerId} | Destination: ${feature.properties.destinationDock}`;
                     break;
             }
+
             const marker = L.circleMarker(
                 [coordinates[1], coordinates[0]],
                 {
@@ -118,11 +124,12 @@ function addMarkers() {
                 });
 
             marker.addTo(map);
-            dataset.markers.push(marker); // Store the marker
+            dataset.markers.push(marker); 
         });
     });
 }
 
+// Setup checkboxes for each dataset to show/hide markers
 function setupCheckboxes() {
     $('.tree-checkbox').change(function() {
         const name = $(this).attr('id');
@@ -142,6 +149,7 @@ function setupCheckboxes() {
     });
 }
 
+// Setup ID toggle to show/hide tooltips
 function setupIDToggle() {
     $('#show-tooltips').change(function() {
         tooltipsVisible = $(this).is(':checked');
