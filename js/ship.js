@@ -14,12 +14,12 @@ const ITEMS = [
 ];
 
 let AllData = [
-    { name: "Ships", features: [], markers: [] },
-    { name: "Docks", features: [], markers: [] },
-    { name: "Containers", features: [], markers: [] },
+    { name: "Ships", features: [], markers: [], count: 0 },
+    { name: "Docks", features: [], markers: [], count: 0 },
+    { name: "Containers", features: [], markers: [], count: 0 },
 ];
 
-let tooltipsVisible = false; 
+let tooltipsVisible = false; // Initialize tooltips visibility
 
 Promise.all(
     MULTIDATA.map((source, index) =>
@@ -27,6 +27,7 @@ Promise.all(
             .then((response) => response.json())
             .then((geojson) => {
                 AllData[index].features = geojson.features;
+                AllData[index].count = geojson.features.length; // Set feature count
             })
             .catch(console.error)
     )
@@ -50,9 +51,10 @@ function appendItems() {
     let ctx = '<h4>Location</h4>';
     $.each(ITEMS, function (i, val) {
         const { name, color } = val;
+        const count = AllData.find(dataset => dataset.name === name).count; // Get the count
         ctx += `<div>
                     <input type="checkbox" id="${name}" class="tree-checkbox" checked> 
-                    <i style="background: ${color};"></i> ${name} <span class="feature-count" id="${name}-count" data-type="${name}">0</span>
+                    <i style="background: ${color};"></i> ${name} <span class="feature-count" id="${name}-count" data-type="${name}">${count}</span>
                 </div>`;
     });
 
@@ -64,8 +66,8 @@ function addMarkers() {
         const color = ITEMS[index].color;
         dataset.features.forEach((feature) => {
             const coordinates = feature.geometry.coordinates;
-            let ctxPopup =''
-            let ctxLabel =''
+            let ctxPopup = '';
+            let ctxLabel = '';
             switch (dataset.name) {
                 case "Ships":
                     ctxPopup = `<div class="popup-content">
@@ -73,9 +75,8 @@ function addMarkers() {
                                     <p><strong>Ship ID:</strong> ${feature.properties.shipId}</p>
                                     <p><strong>Destination:</strong> ${feature.properties.dockId} | "Dock Name"</p>
                                     <p><strong>Time:</strong> ${new Date(feature.properties.timestamp).toLocaleString()}</p>
-                                </div>`
-                    ctxLabel =`${feature.properties.shipId} | ${feature.properties.shipName}`
-
+                                </div>`;
+                    ctxLabel = `${feature.properties.shipId} | ${feature.properties.shipName}`;
                     break;
 
                 case "Docks":
@@ -83,9 +84,8 @@ function addMarkers() {
                                     <h2>${feature.properties.dockName}</h2> 
                                     <p><strong>ID:</strong> ${feature.properties.dockId}</p>
                                     <p><strong>Capacity:</strong> ${feature.properties.capacity}</p>
-                                </div>`
-                    ctxLabel =`${feature.properties.dockId} | ${feature.properties.dockName}`
-
+                                </div>`;
+                    ctxLabel = `${feature.properties.dockId} | ${feature.properties.dockName}`;
                     break;
 
                 case "Containers":
@@ -95,9 +95,8 @@ function addMarkers() {
                                     <p><strong>Size:</strong> ${feature.properties.containerSize}</p>
                                     <p><strong>Content:</strong> ${feature.properties.contents}</p>
                                     <p><strong>Destination:</strong> ${feature.properties.destinationDock}</p>
-                                    </div>`
-                    ctxLabel =`${feature.properties.containerId} | Destination : ${feature.properties.destinationDock}`
-
+                                </div>`;
+                    ctxLabel = `${feature.properties.containerId} | Destination: ${feature.properties.destinationDock}`;
                     break;
             }
             const marker = L.circleMarker(
